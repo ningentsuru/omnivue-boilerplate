@@ -1,0 +1,86 @@
+version: 2
+
+updates:
+  # 1. NPM/PNPM Dependencies
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '09:00'
+      timezone: 'UTC'
+    open-pull-requests-limit: 10
+    labels:
+      - 'dependencies'
+      - 'npm'
+    commit-message:
+      prefix: 'chore(deps)'
+      include: 'scope'
+
+    # Wait before updating to let bugs surface
+    cooldown:
+      default-days: 7
+      semver-major-days: 21
+      semver-minor-days: 7
+      semver-patch-days: 3
+
+    # Group related dependencies to reduce PR noise
+    groups:
+      # Group all Vite-related plugins
+      vite-ecosystem:
+        patterns:
+          - 'vite'
+          - '@vitejs/*'
+          - 'vitest'
+          - '@vitest/*'
+      # Group Storybook packages
+      storybook:
+        patterns:
+          - 'storybook'
+          - '@storybook/*'
+      # Group Vue core
+      vue-core:
+        patterns:
+          - 'vue'
+          - 'vue-router'
+          - 'pinia'
+          - '@vue/*'
+      # Group shadcn-vue / Reka UI
+      ui-primitives:
+        patterns:
+          - 'reka-ui'
+          - 'radix-vue'
+      # Group all development tools (linters, formatters)
+      dev-tools:
+        dependency-type: 'development'
+        update-types:
+          - 'minor'
+          - 'patch'
+        patterns:
+          - 'eslint'
+          - 'prettier'
+          - 'oxlint'
+          - 'typescript'
+          - '@types/*'
+
+  # 2. GitHub Actions
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+    labels:
+      - 'dependencies'
+      - 'github-actions'
+    commit-message:
+      prefix: 'chore(actions)'
+    groups:
+      actions-minor-patch:
+        patterns:
+          - '*'
+        update-types:
+          - 'minor'
+          - 'patch'
+    cooldown:
+      default-days: 14
+      semver-major-days: 30
