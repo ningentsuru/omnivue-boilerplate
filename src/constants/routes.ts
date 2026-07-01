@@ -7,6 +7,7 @@ export const ROUTES = {
   SIGNUP_VIEW: { name: 'signup', path: '/signup' },
   ABOUT_VIEW: { name: 'about', path: '/about' },
   DASHBOARD_VIEW: { name: 'dashboard', path: '/dashboard' },
+  READ_ME_VIEW: { name: 'readmeview', path: '/read-me' },
 } as const
 
 export type RouteName = (typeof ROUTES)[keyof typeof ROUTES]['name']

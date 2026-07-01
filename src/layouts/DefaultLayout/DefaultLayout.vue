@@ -2,11 +2,11 @@
 
 <template>
   <div class="default-layout">
-    <BaseHeader />
+    <AppHeader />
     <main class="container mx-auto">
       <slot />
     </main>
-    <BaseFooter />
+    <AppFooter />
     <span class="sr-only">default-layout</span>
   </div>
 </template>

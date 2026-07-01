@@ -13,14 +13,6 @@ const routes: Array<RouteRecordRaw> = [
   // ... existing routes
   // plop:insert-route
   {
-    path: ROUTES.NOT_FOUND_VIEW.path,
-    name: ROUTES.NOT_FOUND_VIEW.name,
-    component: () => import('@/views/NotFound'),
-    meta: {
-      layout: 'ErrorLayout',
-    },
-  },
-  {
     path: ROUTES.LANDING_VIEW.path,
     name: ROUTES.LANDING_VIEW.name,
     component: LandingView,
@@ -59,6 +51,22 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       layout: 'DefaultLayout',
       requiresAuth: true,
+    },
+  },
+  {
+    path: ROUTES.READ_ME_VIEW.path,
+    name: ROUTES.READ_ME_VIEW.name,
+    component: () => import('@/views/ReadMeView'),
+    meta: {
+      layout: 'DefaultLayout',
+    },
+  },
+  {
+    path: ROUTES.NOT_FOUND_VIEW.path,
+    name: ROUTES.NOT_FOUND_VIEW.name,
+    component: () => import('@/views/NotFound'),
+    meta: {
+      layout: 'ErrorLayout',
     },
   },
 ]

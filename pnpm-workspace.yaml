@@ -4,3 +4,8 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - playwright-core@1.61.1
   - playwright@1.61.1
+  - '@vue/devtools-core@8.1.5'
+  - '@vue/devtools-kit@8.1.5'
+  - '@vue/devtools-shared@8.1.5'
+  - prettier@3.9.1
+  - vite-plugin-vue-devtools@8.1.5

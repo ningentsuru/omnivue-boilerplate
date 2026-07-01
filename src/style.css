@@ -129,6 +129,7 @@
 @theme {
   --header-height: 4rem;
   --footer-height: 4rem;
+  --mobile-safe-area-inset-top: var(--safe-area-inset-top, env(safe-area-inset-top, 0px))
 }
 
 @layer base {
@@ -141,7 +142,7 @@
   }
 
   main {
-    @apply min-h-[calc(100dvh-var(--header-height)-var(--footer-height))];
+    @apply min-h-[calc(100dvh-var(--footer-height))] pt-(--header-height);
   }
 
   header {
@@ -153,13 +154,7 @@
   }
 
   .markdown-body {
-    @apply mx-auto my-0 box-border max-w-245 min-w-50 bg-gray-600! p-11;
-  }
-
-  @media (max-width: 767px) {
-    .markdown-body {
-      @apply p-1;
-    }
+    @apply mx-auto my-0 box-border max-w-245 min-w-50 bg-gray-600! p-1 md:p-11;
   }
 
   .fade-enter-active,
@@ -170,5 +165,9 @@
   .fade-enter-from,
   .fade-leave-to {
     @apply opacity-0;
+  }
+
+  .mobile-layout {
+    @apply flex flex-col min-h-screen bg-background pt-(--mobile-safe-area-inset-top);
   }
 }
