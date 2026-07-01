@@ -32,7 +32,7 @@ onMounted(() => {
 <template>
   <div class="dashboard-view flex flex-col justify-center gap-4">
     <Card>
-      <CardHeader>Track your counting {{ Number.MAX_SAFE_INTEGER }}</CardHeader>
+      <CardHeader>Track your counting</CardHeader>
       <CardContent>
         <p>
           Count:
@@ -45,9 +45,9 @@ onMounted(() => {
         </p>
       </CardContent>
       <CardFooter class="flex gap-2">
-        <Button @click="increment">Increse 1 count</Button>
-        <Button @click="decrement">Decrese 1 count</Button>
-        <Button @click="reset">Reset</Button>
+        <Button class="cursor-pointer" @click="increment">Increse 1 count</Button>
+        <Button class="cursor-pointer" @click="decrement">Decrese 1 count</Button>
+        <Button class="cursor-pointer" @click="reset">Reset</Button>
       </CardFooter>
     </Card>
 

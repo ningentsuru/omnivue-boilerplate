@@ -1,6 +1,4 @@
 export const ROUTES = {
-  // ... existing constants
-  // plop:insert-constant
   NOT_FOUND_VIEW: { name: 'notFound', path: '/:pathMatch(.*)*' },
   LANDING_VIEW: { name: 'landing', path: '/' },
   LOGIN_VIEW: { name: 'login', path: '/login' },
@@ -8,6 +6,7 @@ export const ROUTES = {
   ABOUT_VIEW: { name: 'about', path: '/about' },
   DASHBOARD_VIEW: { name: 'dashboard', path: '/dashboard' },
   READ_ME_VIEW: { name: 'readmeview', path: '/read-me' },
+  // plop:inject-routes-do-not-removed
 } as const
 
 export type RouteName = (typeof ROUTES)[keyof typeof ROUTES]['name']

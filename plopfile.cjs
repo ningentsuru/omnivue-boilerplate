@@ -1,3 +1,22 @@
+const camelCase = (name) =>
+  name
+    .replace(/([a-z\d])([A-Z])/g, '$1_$2')
+    .replace(/[-\s]/g, '_')
+    .toLowerCase()
+    .replace(/_([a-z\d])/g, (_, c) => c.toUpperCase())
+
+const constantCase = (name) =>
+  name
+    .replace(/([a-z\d])([A-Z])/g, '$1_$2')
+    .replace(/[-\s]/g, '_')
+    .toUpperCase()
+
+const removeViewText = (name) =>
+  name
+    .replace(/View$/, '')
+    .replace(/([a-z\d])([A-Z])/g, '$1-$2')
+    .toLowerCase()
+
 module.exports = function (plop) {
   plop.setHelper('eq', (a, b) => a === b)
   plop.setGenerator('component', {
@@ -172,81 +191,18 @@ module.exports = function (plop) {
       ]
 
       if (data.path.includes('/views/')) {
-        const constantCase = (name) =>
-          name
-            .replace(/([a-z\d])([A-Z])/g, '$1_$2')
-            .replace(/[-\s]/g, '_')
-            .toUpperCase()
-
-        const removeViewText = (name) => {
-          return name
-            .replace(/View$/, '')
-            .replace(/([a-z\d])([A-Z])/g, '$1-$2')
-            .toLowerCase()
-        }
         result.push({
           type: 'modify',
           path: 'src/router/index.ts',
-          transform: (template) => {
-            const newRoute = `  {
-    path: ROUTES.${constantCase(data.name)}.path,
-    name: ROUTES.${constantCase(data.name)}.name,
-    component: () => import('@/views/${data.name}'),
-    meta: {
-      layout: 'DefaultLayout',
-    },
-  },`
-
-            const lines = template.split('\n')
-            const lastBracketIndex = lines.lastIndexOf(']')
-            let insertIndex = lastBracketIndex
-
-            for (let i = lastBracketIndex - 1; i >= 0; i--) {
-              if (lines[i].trim().startsWith('}')) {
-                insertIndex = i + 1
-                break
-              }
-            }
-
-            lines.splice(insertIndex, 0, newRoute)
-            return lines.join('\n')
-          },
+          pattern: /\/\/ plop:inject-above-not-found-do-not-removed/g,
+          template: `{\n    path: ROUTES.${constantCase(data.name)}.path,\n    name: ROUTES.${constantCase(data.name)}.name,\n    component: () => import('@/views/${data.name}'),\n    meta: {\n      layout: 'DefaultLayout',\n    },\n  },\n  // plop:inject-above-not-found-do-not-removed`,
         })
 
         result.push({
           type: 'modify',
           path: 'src/constants/routes.ts',
-          transform: (template) => {
-            const newConstant = `  ${constantCase(data.name)}: { name: '${data.name.toLowerCase()}', path: '/${removeViewText(data.name)}' },`
-
-            const lines = template.split('\n')
-
-            let routesObjectEndIndex = -1
-
-            for (let i = 0; i < lines.length; i++) {
-              if (lines[i].trim() === '} as const') {
-                routesObjectEndIndex = i
-                break
-              }
-            }
-
-            if (routesObjectEndIndex === -1) {
-              console.error('Could not find "} as const" for ROUTES object.')
-              return template
-            }
-
-            let insertIndex = routesObjectEndIndex
-
-            for (let i = routesObjectEndIndex - 1; i >= 0; i--) {
-              if (lines[i].includes(':')) {
-                insertIndex = i + 1
-                break
-              }
-            }
-
-            lines.splice(insertIndex, 0, newConstant)
-            return lines.join('\n')
-          },
+          pattern: /\/\/ plop:inject-routes-do-not-removed/g,
+          template: `${constantCase(data.name)}: { name: '${camelCase(removeViewText(data.name))}', path: '/${removeViewText(data.name)}' },\n  // plop:inject-routes-do-not-removed`,
         })
 
         result.push({

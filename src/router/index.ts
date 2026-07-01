@@ -10,8 +10,6 @@ declare module 'vue-router' {
 }
 
 const routes: Array<RouteRecordRaw> = [
-  // ... existing routes
-  // plop:insert-route
   {
     path: ROUTES.LANDING_VIEW.path,
     name: ROUTES.LANDING_VIEW.name,
@@ -61,6 +59,7 @@ const routes: Array<RouteRecordRaw> = [
       layout: 'DefaultLayout',
     },
   },
+  // plop:inject-above-not-found-do-not-removed
   {
     path: ROUTES.NOT_FOUND_VIEW.path,
     name: ROUTES.NOT_FOUND_VIEW.name,
