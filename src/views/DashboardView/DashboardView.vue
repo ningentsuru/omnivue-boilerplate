@@ -52,7 +52,7 @@ onMounted(() => {
     </Card>
 
     <Card>
-      <CardHeader>Abacus Count Display</CardHeader>
+      <CardHeader>Abacus (Soroban) Display</CardHeader>
       <CardContent>
         <AbacusSoroban :count="Number(count)" />
       </CardContent>

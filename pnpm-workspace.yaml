@@ -9,3 +9,7 @@ minimumReleaseAgeExclude:
   - '@vue/devtools-shared@8.1.5'
   - prettier@3.9.1
   - vite-plugin-vue-devtools@8.1.5
+  - '@lucide/vue@1.23.0'
+  - '@types/node@26.1.0'
+  - linkify-it@5.0.2
+  - markdown-it@14.3.0

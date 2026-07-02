@@ -168,6 +168,15 @@
   }
 
   .mobile-layout {
-    @apply flex flex-col min-h-screen bg-background pt-(--mobile-safe-area-inset-top);
+    @apply flex flex-col min-h-screen bg-background pt-(--mobile-safe-area-inset-top) pb-20;
   }
+}
+
+html,
+body {
+  @apply overscroll-none h-full overflow-hidden
+}
+
+#app {
+  @apply h-full overflow-y-auto overscroll-none
 }
