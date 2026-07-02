@@ -1,6 +1,6 @@
 {
   "name": "omnivue-boilerplate",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
   "type": "module",
   "author": {
@@ -25,38 +25,6 @@
     "tauri",
     "shadcn-vue",
     "cross-platform"
-  ],
-  "files": [
-    ".plop-templates",
-    ".storybook",
-    "android",
-    "e2e",
-    "ios",
-    "public",
-    "src",
-    "src-tauri",
-    ".gitattributes",
-    "auto-imports.d.ts",
-    "capacitor.config.ts",
-    "components.json",
-    "index.html",
-    ".editorconfig",
-    ".oxlintrc.json",
-    ".prettierignore",
-    ".prettierrc.json",
-    "eslint.config.ts",
-    "plopfile.cjs",
-    "README.md",
-    "tailwind.config.ts",
-    "tsconfig.json",
-    "env.d.ts",
-    "tsconfig.app.json",
-    "tsconfig.node.json",
-    "tsconfig.vitest.json",
-    "vite.config.ts",
-    "playwright.config.ts",
-    "vitest.config.ts",
-    "vitest.shims.d.ts"
   ],
   "bugs": {
     "url": "https://github.com/ningentsuru/omnivue-boilerplate/issues"
