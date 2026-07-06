@@ -1,153 +1,332 @@
-# Vue 3 + Vite + TypeScript + shadcn-vue + Storybook + Vitest + Playwright
+# 🚀 OmniVue
 
-A modern, type-safe, and component-driven Vue 3 project setup featuring shadcn-vue for accessible UI primitives, isolated component development with Storybook, and robust testing with Vitest.
+OmniVue is a production-ready Vue 3 boilerplate designed for seamless cross-platform development. Build once, deploy everywhere. It unifies Web, Mobile (via Capacitor), and Desktop (via Tauri) targets into a single codebase with shared logic and optimized build pipelines.
 
-## 🚀 Tech Stack
+# ✨ Core Features
 
-- Framework: Vue 3 (Composition API, `<script setup lang="ts">`)
-- Build Tool: Vite
-- Language: TypeScript
-- Component Workshop: Storybook
-- Unit Testing: Vitest
-- E2E Testing: Playwright
-- Scaffolding: Plop
-- Linting & Formatting: ESLint, Oxlint, Prettier
-- UI System: shadcn-vue (Reka UI + Tailwind CSS)
+- 🌐 Unified Codebase: Share components, state (Pinia), and routing across Web, iOS, Android, and Desktop.
+- ⚡ High Performance: Leverages Vite for instant server start and lightning-fast HMR.
+- 🔌 Native-Ready Architecture: Pre-integrated with Capacitor and Tauri bridges. Easily enable native features (Camera, Geolocation, File System) with context-aware permission handling.
+- 🛠️ Production Ready: Pre-configured linting, testing (Vitest/Playwright), and optimized build scripts for all platforms.
 
-## 📦 Getting Started
+# 📦 Installation
 
-### Prerequisites
-
-Ensure you have Node.js (^22.18.0 >= 24.12.0 recommended) and npm installed.
-
-### Installation
+Get started quickly by cloning the boilerplate directly into your project directory:
 
 ```bash
+npx degit ningentsuru/omnivue-boilerplate my-omnivue-project
+cd my-omnivue-project
 pnpm install
 ```
 
-### Development
+# Prerequisites
 
-Start the local development server with hot-reload:
+Ensure you have the following installed before running platform-specific commands:
+
+- Node.js (22.18.0 >= 24.12.0) & pnpm
+- Web: Any modern browser
+- Mobile: Android Studio (for Android) and Xcode (for iOS/macOS)
+- Desktop: Rust toolchain (required for Tauri)
+
+# 💻 Development Commands
+
+Run the development server for your target platform. Hot Module Replacement (HMR) is enabled for all environments.
+
+Web Development
+Starts the Vite development server.
 
 ```bash
 pnpm dev
 ```
 
-### Component Generation
+Opens http://localhost:5173 in your default browser.
 
-Generate a new Vue component with associated Storybook stories and Vitest tests automatically:
+# Mobile Development
+
+These commands build the web assets and open the respective native IDEs. Note: You must hit the "Play" button within the IDE to launch the emulator or device.
+
+## Android
 
 ```bash
-pnpm make-component
+pnpm dev:android
 ```
 
-Follow the CLI prompts to define the component path and props.
+Launches Android Studio. Sync Gradle if prompted, then run the app.
 
-## 🛠 Available Scripts
+## iOS
 
-| Command                | Description                                                              |
-| :--------------------- | :----------------------------------------------------------------------- |
-| `pnpm dev`             | Starts the Vite development server.                                      |
-| `pnpm build`           | Runs type-check and builds the project for production.                   |
-| `pnpm preview`         | Locally previews the production build.                                   |
-| `pnpm storybook`       | Starts the Storybook UI on port 6006 for isolated component development. |
-| `pnpm build-storybook` | Builds the Storybook instance for static deployment.                     |
-| `pnpm test:unit`       | Runs unit tests using Vitest.                                            |
-| `pnpm test:e2e`        | Runs end-to-end tests using Playwright.                                  |
-| `pnpm type-check`      | Runs `vue-tsc` to verify TypeScript types.                               |
-| `pnpm lint`            | Runs both Oxlint and ESLint to fix linting issues.                       |
-| `pnpm format`          | Formats code using Prettier.                                             |
-| `pnpm ui:add`          | Adds a new shadcn-vue component (e.g., pnpm ui:add button).              |
+```bash
+pnpm dev:ios
+```
 
-## 🧪 Testing Strategy
+Launches Xcode. Select your signing team and scheme, then run the app.
 
-This project employs a multi-layered testing approach:
+# Desktop Development
 
-### Unit Testing (Vitest)
+Builds and launches the desktop application using Tauri.
 
-Located alongside components (e.g., Component.spec.ts). Tests logic, props, and rendering in isolation.
+```bash
+pnpm dev:desktop
+```
 
-Integration: Tests are automatically generated to use Storybook Default.args, ensuring consistency between visual development and unit tests.
+# 🏗️ Production Builds
+
+Generate optimized assets and native binaries for distribution.
+
+## Web Build
+
+Generates static assets in the /dist directory ready for hosting (Vercel, Netlify, S3, etc.).
+
+```bash
+pnpm build
+```
+
+# Mobile Builds
+
+These commands prepare the native projects. You must complete the build process (Archive/Generate Signed Bundle) inside the native IDE.
+
+## Android (APK/AAB)
+
+```bash
+pnpm build:android
+```
+
+Opens Android Studio. Use Build > Generate Signed Bundle / APK to create the final artifact.
+
+## iOS (IPA)
+
+```bash
+pnpm build:ios
+```
+
+Opens Xcode. Use Product > Archive to validate and distribute the app via TestFlight or App Store.
+
+# Desktop Installers
+
+Generates standalone installers for Windows (.msi/.exe), macOS (.dmg/.app), and Linux (.AppImage/.deb).
+
+```bash
+pnpm build:desktop
+```
+
+Artifacts are located in src-tauri/target/release/bundle/.
+
+# 📂 Project Structure
+
+```bash
+├── src/
+│   ├── components/         # Atomic Design components & UI primitives
+│   │   ├── ui/             # [Optional] shadcn-vue primitives (unstyled/headless)
+│   │   ├── atoms/          # Basic building blocks (Buttons, Inputs, Labels)
+│   │   ├── molecules/      # Groups of atoms (SearchBars, FormFields, Cards)
+│   │   ├── organisms/      # Complex sections (Navbars, Footers, DataTables)
+│   │   └── templates/      # Page layouts without data logic
+│   ├── assets/             # Static assets (images, styles)
+│   ├── composables/        # Reusable logic hooks
+│   ├── constants/          # App-wide constants and enums
+|   ├── layouts/            # High-level layout wrappers (e.g., AuthLayout, MainLayout)
+|   ├── lib/                # Third-party library configurations and utilities
+|   ├── router/             # Vue Router configuration and routes
+│   ├── stores/             # Pinia state management
+|   ├── test/
+│   |   └── setup.ts        # Global test configuration (Vitest)
+│   └── views/              # [Legacy/Alternative] Simple page components if not using templates
+├── src-tauri/              # Tauri backend (Rust) and desktop config
+├── android/                # Generated Android native project (Capacitor)
+├── ios/                    # Generated iOS native project (Capacitor)
+├── public/                 # Public static files
+└── package.json            # Dependencies and scripts
+```
+
+# 📜 Component Generation Documentation
+
+This document outlines the standards, logic, and file structure for generating components in the OmniVue project using plop.
+
+## 1. Generation Workflow
+
+The generator enforces Atomic Design principles and ensures every component is created with its corresponding tests and documentation stories.
+
+### A. Category Selection
+
+Users must select where the component resides, enforcing the project structure:
+
+- Atoms: Basic UI elements (Buttons, Inputs).
+- Molecules: Groups of atoms (Search Bars, Form Fields).
+- Organisms: Complex sections (Navbars, Data Tables).
+- Layouts: High-level page wrappers.
+- Views: Full page views (must end with View suffix).
+- Custom Path: For advanced use cases.
+
+### B. Naming Conventions
+
+- PascalCase: All component names must be in PascalCase (e.g., UserProfile, HomeView).
+- View Suffix: Components placed in src/views/ must end with View (e.g., DashboardView). The generator automatically validates this.
+- File Naming: The generated folder and files will match the component name exactly.
+
+### C. Prop Definition
+
+The generator supports interactive prop definition:
+
+1. Prompt: Asks if the component requires props.
+2. Definition Loop: Allows adding multiple props with:
+   - Name: Must be a valid JavaScript identifier.
+   - Type: string, number, boolean, object, array, or function.
+   - Array Sub-type: If array is selected, you must specify the element type (e.g., string[]).
+3. Output: Generates a TypeScript interface or defineProps definition based on inputs.
+
+## 2. Output File Structure
+
+For a component named MyComponent in the atoms category, the generator creates:
+
+```bash
+src/components/atoms/MyComponent/
+├── MyComponent.vue         # Main component with <script setup lang="ts">
+├── MyComponent.spec.ts     # Vitest unit test scaffold
+├── MyComponent.stories.ts  # Storybook story with typed args
+└── index.ts                # Barrel export (export { default } from './MyComponent.vue')
+```
+
+### File Templates Logic
+
+| File        | Description     | Key Features                                                                                        |
+| ----------- | --------------- | --------------------------------------------------------------------------------------------------- |
+| .vue        | Component Logic | Uses `<script setup lang="ts">`. Includes defineProps with types derived from the prompt.           |
+| .spec.ts    | Unit Test       | Imports the component via index.ts. Includes a basic mount test using @vue/test-utils.              |
+| .stories.ts | Storybook       | Uses Meta and StoryObj types. Auto-generates args based on defined props for immediate interaction. |
+| index.ts    | Export          | Ensures clean imports: import MyComponent from '@/components/atoms/MyComponent'.                    |
+
+## 3. Helper Functions
+
+The plopfile.cjs includes specific helpers to ensure consistent naming across files:
+
+- camelCase: Converts input to camelCase (used for variable names).
+- constantCase: Converts input to CONSTANT_CASE (used for test descriptions or constants).
+- removeViewText: Specifically for Views; strips the "View" suffix and converts to kebab-case for router path generation (e.g., HomeView → home).
+
+## 4. Usage Example
+
+Scenario: Creating a new Button Atom.
+
+1. Run: pnpm make-component
+2. Category: Select (Atoms) : (src/components/atoms/).
+3. Name: Enter PrimaryButton.
+4. Props:
+   - Confirm Yes.
+   - Prop 1: label (string).
+   - Prop 2: isActive (boolean).
+   - Prop 3: tags (array of strings).
+5. Result:
+   - Creates `src/components/atoms/PrimaryButton/`.
+   - Generates PrimaryButton.vue with typed props:
+
+```bash
+interface Props {
+  label: string;
+  isActive: boolean;
+  tags: string[];
+}
+withDefaults(defineProps<Props>(), {
+  label: '',
+  isActive: false,
+  tags: ['']
+})
+```
+
+- Generates PrimaryButton.stories.ts with controls for label, isActive, and tags.
+
+# 🧪 Testing Documentation
+
+OmniVue employs a robust Testing Pyramid strategy, combining fast unit tests for logic/components with reliable end-to-end (E2E) tests for critical user flows.
+
+## 1. Testing Stack
+
+- Unit Testing: Powered by Vitest. It runs in parallel with your Vite dev server, offering instant feedback, native TypeScript support, and compatibility with Vue 3's `<script setup>`.
+- E2E Testing: Powered by Playwright. It provides cross-browser testing (Chromium, Firefox, WebKit) for real-world user scenarios, handling network mocking, mobile emulation, and visual regression out of the box.
+
+## 2. Available Commands
+
+The package.json scripts are configured to run these tools independently or together.
+
+### Run All Tests
+
+Executes both unit and E2E suites sequentially.
+
+```bash
+pnpm test
+```
+
+Internally runs run-s test:unit test:e2e.
+
+### Unit Tests Only
+
+Runs Vitest in watch mode by default (re-runs on file save).
 
 ```bash
 pnpm test:unit
 ```
 
-### End-to-End Testing (Playwright)
+- Coverage: Add --coverage flag to generate reports.
+- UI Mode: Run pnpm vitest --ui for an interactive dashboard.
+- File Structure: Tests live alongside components (e.g., ComponentName.spec.ts).
 
-Located in e2e/ directory. Tests critical user flows in a real browser environment.
+### E2E Tests Only
+
+Runs Playwright tests against the production build or dev server.
 
 ```bash
 pnpm test:e2e
 ```
 
-## 🎨 Component Development Workflow
+- Headed Mode: pnpm playwright test --headed (visually see the browser).
+- Debug Mode: pnpm playwright test --debug (step-through debugging).
+- UI Mode: pnpm playwright test --ui (interactive test runner).
+- File Structure: Tests reside in the /e2e directory (e.g., e2e/user-flow.spec.ts).
 
-Scaffold: Run pnpm make-component.
-Develop: Open Storybook (pnpm storybook) to build the component in isolation.
-Test: Run pnpm test:unit to verify logic and prop handling.
-Integrate: Import the component into your main application.
+## 3. Configuration & Best Practices
 
-## 🎨 UI Components (shadcn-vue)
+### Vitest Configuration (vitest.config.ts)
 
-This project uses [shadcn-vue](https://www.shadcn-vue.com/) for high-quality, accessible UI primitives. Unlike traditional component libraries, shadcn-vue copies component code directly into your project, giving you full ownership and customization control.
-
-### Adding Components
-
-Use the CLI to add components to your `src/components/ui` directory:
+Ensure Vitest ignores E2E tests to prevent conflicts:
 
 ```bash
-npx shadcn-vue@latest add [component-name]
-or
-pnpm ui:add [component-name]
+test: {
+  // ... your existing config
+  exclude: ['**/node_modules/**', '**/e2e/**', '**/dist/**'],
+}
 ```
 
-Note: It is recommended not to add all components at once, as some of the components have known bugs. Only install what you need.
+### Playwright Configuration (playwright.config.ts)
 
-## Directory Structure
-
-shadcn-vue components are typically stored in:
-
-- `src/components/ui/`: Core shadcn components (Button, Input, Card, etc.)
-- `src/components/`: Your custom business components (which may use shadcn primitives)
-
-## 📂 Project Structure
-
-```
-src/
-├── components/ # Reusable Vue components
-│ ├── ui/ # shadcn-vue primitives (Button, Input, etc.)
-│ ├── atoms/ # Basic building blocks (buttons, inputs)
-│ ├── molecules/ # Groups of atoms (search bars, cards)
-│ └── organisms/ # Complex sections (headers, footers)
-├── stories/ # Storybook story files (often co-located)
-├── e2e/ # Playwright E2E tests
-├── assets/ # Static assets (images, fonts)
-└── main.ts # Application entry point
-.plop-templates/ # Templates for component scaffolding
-.storybook/ # Storybook configuration
-```
-
-## 🔧 Configuration & Quality Assurance
-
-- Type Safety: Strict TypeScript checking is enforced during the build process (vue-tsc).
-- Linting: A dual-linting approach using Oxlint (for speed) and ESLint (for deep rules).
-- Formatting: Prettier ensures consistent code style across the team.
-
-Run the full quality check suite:
+Configures the test runner to spin up the Vite dev server automatically:
 
 ```bash
-pnpm lint
-pnpm format
-pnpm type-check
+export default defineConfig({
+  // ... your existing config
+  webServer: {
+    command: process.env.CI ? 'pnpm preview' : 'pnpm dev',
+    port: process.env.CI ? 4173 : 5173,
+    reuseExistingServer: !process.env.CI,
+  },
+})
 ```
 
-## 📚 Resources
+## Writing Tests
 
-- Vue 3 Documentation
-- Vite Documentation
-- Storybook for Vue 3
-- Vitest Documentation
-- Playwright Documentation
-- Shadcn-vue (for UI components)
+- Unit: Focus on isolated component behavior, props, and emitted events. Use @vue/test-utils or Vitest's browser mode for rendering.
+- E2E: Focus on critical user journeys (Login, Checkout, Navigation). Use data-testid attributes for stable selectors rather than CSS classes.
+
+# 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository.
+2. Create a feature branch (git checkout -b feature/amazing-feature).
+3. Commit your changes (git commit -m 'Add amazing feature').
+4. Push to the branch (git push origin feature/amazing-feature).
+5. Open a Pull Request.
+
+# 📄 License
+
+This project is open source and available under the MIT License.
+
+### Built with ❤️ using Vue 3, Vite, Capacitor, and Tauri.

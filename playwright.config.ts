@@ -1,8 +1,5 @@
 import process from 'node:process'
 import { defineConfig, devices } from '@playwright/test'
-import dotenv from 'dotenv'
-
-dotenv.config()
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -100,7 +97,7 @@ export default defineConfig({
      * Use the preview server on CI for more realistic testing.
      * Playwright will re-use the local server if there is already a dev-server running.
      */
-    command: process.env.CI ? 'npm run preview' : 'npm run dev',
+    command: process.env.CI ? 'pnpm preview' : 'pnpm dev',
     port: process.env.CI ? 4173 : 5173,
     reuseExistingServer: !process.env.CI,
   },

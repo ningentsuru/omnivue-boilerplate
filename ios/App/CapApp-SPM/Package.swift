@@ -12,6 +12,10 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", exact: "8.4.1"),
+        .package(name: "CapacitorCamera", path: "..\..\..\node_modules\.pnpm\@capacitor+camera@8.2.0_@capacitor+core@8.4.1\node_modules\@capacitor\camera"),
+        .package(name: "CapacitorFilesystem", path: "..\..\..\node_modules\.pnpm\@capacitor+filesystem@8.1.2_@capacitor+core@8.4.1\node_modules\@capacitor\filesystem"),
+        .package(name: "CapacitorGeolocation", path: "..\..\..\node_modules\.pnpm\@capacitor+geolocation@8.2.0_@capacitor+core@8.4.1\node_modules\@capacitor\geolocation"),
+        .package(name: "CapacitorShare", path: "..\..\..\node_modules\.pnpm\@capacitor+share@8.0.1_@capacitor+core@8.4.1\node_modules\@capacitor\share"),
         .package(name: "CapacitorStatusBar", path: "..\..\..\node_modules\.pnpm\@capacitor+status-bar@8.0.2_@capacitor+core@8.4.1\node_modules\@capacitor\status-bar")
     ],
     targets: [
@@ -20,6 +24,10 @@ let package = Package(
             dependencies: [
                 .product(name: "Capacitor", package: "capacitor-swift-pm"),
                 .product(name: "Cordova", package: "capacitor-swift-pm"),
+                .product(name: "CapacitorCamera", package: "CapacitorCamera"),
+                .product(name: "CapacitorFilesystem", package: "CapacitorFilesystem"),
+                .product(name: "CapacitorGeolocation", package: "CapacitorGeolocation"),
+                .product(name: "CapacitorShare", package: "CapacitorShare"),
                 .product(name: "CapacitorStatusBar", package: "CapacitorStatusBar")
             ]
         )

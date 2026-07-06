@@ -194,8 +194,8 @@ module.exports = function (plop) {
         result.push({
           type: 'modify',
           path: 'src/router/index.ts',
-          pattern: /\/\/ plop:inject-above-not-found-do-not-removed/g,
-          template: `{\n    path: ROUTES.${constantCase(data.name)}.path,\n    name: ROUTES.${constantCase(data.name)}.name,\n    component: () => import('@/views/${data.name}'),\n    meta: {\n      layout: 'DefaultLayout',\n    },\n  },\n  // plop:inject-above-not-found-do-not-removed`,
+          pattern: /\/\/ plop:inject-routes-component-do-not-removed/g,
+          template: `{\n    path: ROUTES.${constantCase(data.name)}.path,\n    name: ROUTES.${constantCase(data.name)}.name,\n    component: () => import('@/views/${data.name}'),\n    meta: {\n      layout: 'DefaultLayout',\n    },\n  },\n  // plop:inject-routes-component-do-not-removed`,
         })
 
         result.push({

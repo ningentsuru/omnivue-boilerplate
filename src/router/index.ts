@@ -59,7 +59,15 @@ const routes: Array<RouteRecordRaw> = [
       layout: 'DefaultLayout',
     },
   },
-  // plop:inject-above-not-found-do-not-removed
+  {
+    path: ROUTES.MOBILE_FEATURES_VIEW.path,
+    name: ROUTES.MOBILE_FEATURES_VIEW.name,
+    component: () => import('@/views/MobileFeaturesView'),
+    meta: {
+      layout: 'DefaultLayout',
+    },
+  },
+  // plop:inject-routes-component-do-not-removed
   {
     path: ROUTES.NOT_FOUND_VIEW.path,
     name: ROUTES.NOT_FOUND_VIEW.name,

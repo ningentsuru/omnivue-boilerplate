@@ -12,7 +12,8 @@ const { logout, isAuthenticated } = useAuth()
     <nav class="flex justify-around space-x-2">
       <router-link :to="ROUTES.DASHBOARD_VIEW.path">Dashboard</router-link>
       <router-link :to="ROUTES.ABOUT_VIEW.path">About</router-link>
-      <router-link :to="ROUTES.READ_ME_VIEW.path">ReadMe</router-link>
+      <router-link :to="ROUTES.READ_ME_VIEW.path">Read me</router-link>
+      <router-link :to="ROUTES.MOBILE_FEATURES_VIEW.path">Mobile features</router-link>
       <Button
         v-if="isAuthenticated"
         variant="link"

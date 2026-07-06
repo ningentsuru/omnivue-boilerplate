@@ -1,6 +1,6 @@
 {
   "name": "omnivue-boilerplate",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": false,
   "type": "module",
   "author": {
@@ -8,7 +8,7 @@
     "email": "ja.sardido@outlook.com",
     "url": "https://github.com/ningentsuru"
   },
-  "description": "A universal Vue 3 boilerplate with Vite, TypeScript, shadcn-vue, Capacitor, and Tauri",
+  "description": "OmniVue is a production-ready Vue 3 boilerplate designed for seamless cross-platform development. Build once, deploy everywhere. It unifies Web, Mobile (via Capacitor), and Desktop (via Tauri) targets into a single codebase with shared logic and optimized build pipelines.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -56,9 +56,13 @@
   },
   "dependencies": {
     "@capacitor/android": "^8.4.1",
+    "@capacitor/camera": "^8.2.0",
     "@capacitor/cli": "^8.4.1",
     "@capacitor/core": "^8.4.1",
+    "@capacitor/filesystem": "^8.1.2",
+    "@capacitor/geolocation": "^8.2.0",
     "@capacitor/ios": "^8.4.1",
+    "@capacitor/share": "^8.0.1",
     "@capacitor/status-bar": "^8.0.2",
     "@lucide/vue": "^1.23.0",
     "@tailwindcss/vite": "^4.3.2",
