@@ -11,7 +11,9 @@ OmniVue is a production-ready Vue 3 boilerplate designed for seamless cross-plat
 
 # 📦 Installation
 
-Get started quickly by cloning the boilerplate directly into your project directory:
+> ⚠️ **Important**: This is a **project template**, not a library.
+> Do **not** run `npm install omnivue-boilerplate`.
+> Use the command below to scaffold a new project:
 
 ```bash
 npx degit ningentsuru/omnivue-boilerplate my-omnivue-project
@@ -39,7 +41,7 @@ Starts the Vite development server.
 pnpm dev
 ```
 
-Opens http://localhost:5173 in your default browser.
+> Opens http://localhost:5173 in your default browser.
 
 # Mobile Development
 
@@ -51,7 +53,7 @@ These commands build the web assets and open the respective native IDEs. Note: Y
 pnpm dev:android
 ```
 
-Launches Android Studio. Sync Gradle if prompted, then run the app.
+> Launches Android Studio. Sync Gradle if prompted, then run the app.
 
 ## iOS
 
@@ -59,7 +61,7 @@ Launches Android Studio. Sync Gradle if prompted, then run the app.
 pnpm dev:ios
 ```
 
-Launches Xcode. Select your signing team and scheme, then run the app.
+> Launches Xcode. Select your signing team and scheme, then run the app.
 
 # Desktop Development
 
@@ -91,7 +93,7 @@ These commands prepare the native projects. You must complete the build process 
 pnpm build:android
 ```
 
-Opens Android Studio. Use Build > Generate Signed Bundle / APK to create the final artifact.
+> Opens Android Studio. Use Build > Generate Signed Bundle / APK to create the final artifact.
 
 ## iOS (IPA)
 
@@ -99,7 +101,7 @@ Opens Android Studio. Use Build > Generate Signed Bundle / APK to create the fin
 pnpm build:ios
 ```
 
-Opens Xcode. Use Product > Archive to validate and distribute the app via TestFlight or App Store.
+> Opens Xcode. Use Product > Archive to validate and distribute the app via TestFlight or App Store.
 
 # Desktop Installers
 
@@ -109,7 +111,7 @@ Generates standalone installers for Windows (.msi/.exe), macOS (.dmg/.app), and 
 pnpm build:desktop
 ```
 
-Artifacts are located in src-tauri/target/release/bundle/.
+> Artifacts are located in src-tauri/target/release/bundle/.
 
 # 📂 Project Structure
 
@@ -315,7 +317,7 @@ export default defineConfig({
 - Unit: Focus on isolated component behavior, props, and emitted events. Use @vue/test-utils or Vitest's browser mode for rendering.
 - E2E: Focus on critical user journeys (Login, Checkout, Navigation). Use data-testid attributes for stable selectors rather than CSS classes.
 
-# 🤝 Contributing
+<!-- # 🤝 Contributing // I still need to finish the final phase before opening this to contributions and beginning collaboration.
 
 Contributions are welcome! Please follow these steps:
 
@@ -323,7 +325,7 @@ Contributions are welcome! Please follow these steps:
 2. Create a feature branch (git checkout -b feature/amazing-feature).
 3. Commit your changes (git commit -m 'Add amazing feature').
 4. Push to the branch (git push origin feature/amazing-feature).
-5. Open a Pull Request.
+5. Open a Pull Request. -->
 
 # 📄 License
 
