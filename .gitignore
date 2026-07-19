@@ -43,3 +43,6 @@ playwright-report/
 
 *storybook.log
 storybook-static
+
+# Environment
+.env

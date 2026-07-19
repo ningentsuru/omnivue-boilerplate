@@ -126,7 +126,6 @@ pnpm build:desktop
 │   ├── assets/             # Static assets (images, styles)
 │   ├── composables/        # Reusable logic hooks
 │   ├── constants/          # App-wide constants and enums
-|   ├── layouts/            # High-level layout wrappers (e.g., AuthLayout, MainLayout)
 |   ├── lib/                # Third-party library configurations and utilities
 |   ├── router/             # Vue Router configuration and routes
 │   ├── stores/             # Pinia state management

@@ -1,24 +1,71 @@
-const camelCase = (name) =>
-  name
-    .replace(/([a-z\d])([A-Z])/g, '$1_$2')
-    .replace(/[-\s]/g, '_')
-    .toLowerCase()
-    .replace(/_([a-z\d])/g, (_, c) => c.toUpperCase())
+const SPLIT_REGEX = /([a-z\d])([A-Z])|[-_\s]+/g
 
-const constantCase = (name) =>
-  name
-    .replace(/([a-z\d])([A-Z])/g, '$1_$2')
-    .replace(/[-\s]/g, '_')
-    .toUpperCase()
+const pascalCaseRegex = /^[A-Z][a-zA-Z0-9]*$/
+const singleWordRegex = /^[A-Z][a-z0-9]*$/
 
-const removeViewText = (name) =>
-  name
-    .replace(/View$/, '')
-    .replace(/([a-z\d])([A-Z])/g, '$1-$2')
-    .toLowerCase()
+function checkPrefixRegex(prefix, name) {
+  return new RegExp(`^${prefix}[A-Z]`).test(name)
+}
+
+function camelCase(name) {
+  if (!name) return ''
+  const words = name.replace(SPLIT_REGEX, '$1 $2').split(' ').filter(Boolean)
+
+  return words
+    .map((word, i) =>
+      i === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
+    )
+    .join('')
+}
+
+function constantCase(name) {
+  if (!name) return ''
+  return name
+    .replace(SPLIT_REGEX, '$1 $2')
+    .split(' ')
+    .filter(Boolean)
+    .map((word) => word.toUpperCase())
+    .join('_')
+}
+
+function removeViewText(name) {
+  if (!name) return ''
+  const withoutView = name.replace(/View$/, '')
+  return withoutView.replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase()
+}
+
+const srcCategories = [
+  {
+    category: 'src/components/atoms',
+    value: 'AtomComponent',
+  },
+  {
+    category: 'src/components/molecules',
+    value: 'MoleculeComponent',
+  },
+  {
+    category: 'src/components/organisms',
+    value: 'OrganismComponent',
+  },
+  {
+    category: 'src/components/templates',
+    value: 'TemplateComponent',
+  },
+  {
+    category: 'src/views',
+    value: 'ComponentView',
+  },
+]
+
+function getCategoryValue(category) {
+  return srcCategories.find((item) => category.includes(item.category))
+}
 
 module.exports = function (plop) {
   plop.setHelper('eq', (a, b) => a === b)
+  plop.setHelper('hasModelValue', (props) => {
+    return Array.isArray(props) && props.some((p) => p.propName === 'modelValue')
+  })
   plop.setGenerator('component', {
     description: 'Create a Vue component with spec and story',
 
@@ -38,7 +85,10 @@ module.exports = function (plop) {
               name: '(Organisms) : (src/components/organisms/)',
               value: 'src/components/organisms/',
             },
-            { name: '(Layouts)   : (src/layouts/)', value: 'src/layouts/' },
+            {
+              name: '(Templates) : (src/components/templates/)',
+              value: 'src/components/templates/',
+            },
             { name: '(Views)     : (src/views/)', value: 'src/views/' },
             { name: 'Custom Path', value: 'custom' },
           ],
@@ -50,22 +100,36 @@ module.exports = function (plop) {
             answer.category.includes('src/views/')
               ? 'What is the view/page name?'
               : 'What is the component name?',
-          default: (answer) =>
-            answer.category.includes('src/views/') ? 'HomeView' : 'MyComponent',
+          default: (answer) => {
+            return getCategoryValue(answer.category).value
+          },
           when: (answers) => answers.category !== 'custom',
           validate: (input, answers) => {
-            if (!input.trim()) return 'Component name cannot be empty'
+            const name = input.trim()
+            if (!name) return 'Component name cannot be empty'
+            if (!pascalCaseRegex.test(name)) return 'Component name must be in PascalCase'
+            if (singleWordRegex.test(name))
+              return 'Component name must be composed of at least two words'
 
-            const isView = answers.category.includes('src/views/')
+            const { category } = answers
+            const isView = category?.includes('src/views/')
+            const config = getCategoryValue(category)
 
-            const pascalCaseRegex = /^[A-Z][a-zA-Z0-9]*$/
-            if (!pascalCaseRegex.test(input)) {
-              return `Component name must be in PascalCase (e.g., ${isView ? 'HomeView' : 'MyComponent'})`
-            }
+            // Fallback if category not found
+            if (!config) return true
 
-            if (answers.category && isView) {
-              if (!input.endsWith('View')) {
-                return 'Component in views must have "View" suffix (e.g., HomeView)'
+            const atomicValue = config.value
+            // Extract singular prefix: "AtomComponent" → "Atom", "ComponentView" → "" (handled separately)
+            const prefix = atomicValue.replace('Component', '')
+            const isGeneric = atomicValue === 'ComponentView' // Special case for views helper value
+
+            if (isView) {
+              if (!name.endsWith('View'))
+                return 'Component name in views must have "View" suffix (e.g., HomeView)'
+            } else if (!isGeneric && prefix) {
+              // Enforce singular prefix (e.g., must start with "Atom", not "Atoms")
+              if (!name.startsWith(prefix) || !checkPrefixRegex(prefix, name)) {
+                return `Component name must start with "${prefix}" (e.g., ${prefix}Button)`
               }
             }
 
@@ -78,20 +142,6 @@ module.exports = function (plop) {
           message: 'Destination path for the component:',
           default: 'src/components/MyComponent',
           when: (answers) => answers.category === 'custom',
-          validate: (input) => {
-            if (!input.trim()) return 'Path cannot be empty'
-
-            if (input.includes('src/views/')) {
-              const fileName = input.split('/').pop()
-              const nameWithoutExt = fileName.replace(/\.[^/.]+$/, '')
-
-              if (!nameWithoutExt.endsWith('View')) {
-                return 'Components in "src/views/" must have a "View" suffix (e.g., HomeView)'
-              }
-            }
-
-            return true
-          },
         },
         {
           type: 'confirm',

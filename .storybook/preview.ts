@@ -8,6 +8,12 @@ setup((app) => {
 })
 
 const preview: Preview = {
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: '<Suspense><story /></Suspense>',
+    }),
+  ],
   parameters: {
     controls: {
       matchers: {

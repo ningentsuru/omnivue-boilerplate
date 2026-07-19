@@ -4,8 +4,7 @@ import { ROUTES } from '../src/constants/index.js'
 test('visits the {{kebabCase name}} url', async ({ page }) => {
   await page.goto(ROUTES.{{constantCase name}}.path)
 
-  const container = page.locator('.{{kebabCase name}}')
+  const container = page.getByTestId('{{kebabCase name}}')
 
-  await expect(container).toContainClass('{{kebabCase name}}')
   await expect(container).toBeAttached()
 })

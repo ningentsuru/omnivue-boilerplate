@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { ROUTES } from '@/constants'
-import LandingView from '@/views/LandingView'
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -11,71 +10,22 @@ declare module 'vue-router' {
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: ROUTES.LANDING_VIEW.path,
-    name: ROUTES.LANDING_VIEW.name,
-    component: LandingView,
+    path: ROUTES.HOME_VIEW.path,
+    name: ROUTES.HOME_VIEW.name,
+    component: () => import('@/views/HomeView'),
     meta: {
       layout: 'DefaultLayout',
     },
   },
   {
-    path: ROUTES.LOGIN_VIEW.path,
-    name: ROUTES.LOGIN_VIEW.name,
-    component: () => import('@/views/LoginView'),
-    meta: {
-      layout: 'AuthLayout',
-    },
-  },
-  {
-    path: ROUTES.SIGNUP_VIEW.path,
-    name: ROUTES.SIGNUP_VIEW.name,
-    component: () => import('@/views/SignupView'),
-    meta: {
-      layout: 'AuthLayout',
-    },
-  },
-  {
-    path: ROUTES.ABOUT_VIEW.path,
-    name: ROUTES.ABOUT_VIEW.name,
-    component: () => import('@/views/AboutView'),
-    meta: {
-      layout: 'DefaultLayout',
-    },
-  },
-  {
-    path: ROUTES.DASHBOARD_VIEW.path,
-    name: ROUTES.DASHBOARD_VIEW.name,
-    component: () => import('@/views/DashboardView'),
-    meta: {
-      layout: 'DefaultLayout',
-      requiresAuth: true,
-    },
-  },
-  {
-    path: ROUTES.READ_ME_VIEW.path,
-    name: ROUTES.READ_ME_VIEW.name,
-    component: () => import('@/views/ReadMeView'),
-    meta: {
-      layout: 'DefaultLayout',
-    },
-  },
-  {
-    path: ROUTES.MOBILE_FEATURES_VIEW.path,
-    name: ROUTES.MOBILE_FEATURES_VIEW.name,
-    component: () => import('@/views/MobileFeaturesView'),
+    path: ROUTES.OPTIMIZED_DATA_LIST_VIEW.path,
+    name: ROUTES.OPTIMIZED_DATA_LIST_VIEW.name,
+    component: () => import('@/views/OptimizedDataListView'),
     meta: {
       layout: 'DefaultLayout',
     },
   },
   // plop:inject-routes-component-do-not-removed
-  {
-    path: ROUTES.NOT_FOUND_VIEW.path,
-    name: ROUTES.NOT_FOUND_VIEW.name,
-    component: () => import('@/views/NotFound'),
-    meta: {
-      layout: 'ErrorLayout',
-    },
-  },
 ]
 
 const router = createRouter({

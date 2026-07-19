@@ -1,9 +1,3 @@
-import { vi } from 'vitest'
+import { config } from '@vue/test-utils'
 
-vi.mock('/linkedin.ico', () => ({
-  default: 'mocked-linkedin-icon',
-}))
-
-vi.mock('/github.ico', () => ({
-  default: 'mocked-github-icon',
-}))
+config.global.plugins = []
